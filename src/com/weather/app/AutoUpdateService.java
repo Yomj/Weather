@@ -39,7 +39,19 @@ public class AutoUpdateService extends Service {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String cityCode = prefs.getString("city_id", "");
 		String address = "http://www.weather.com.cn/data/cityinfo/" + cityCode + ".html";
-		
+		WeatherActivity.sendHttpRequeset(address, new HttpCallbackListener(){
+
+			@Override
+			public void onFinish(String response) {
+				WeatherActivity.handleWeatherResponse(AutoUpdateService.this,response);
+			}
+
+			@Override
+			public void onError(Exception e) {
+				e.printStackTrace();
+			}
+			
+		});
 	}
 	
 

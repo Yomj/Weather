@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -72,9 +73,11 @@ public class WeatherActivity extends Activity {
 		temp2Text.setText(prefs.getString("temp1", ""));
 		weatherText.setText(prefs.getString("weather", ""));
 		publishText.setText("今天" + prefs.getString("publish_time", "") + "发布");
+		Intent intent = new Intent(this,AutoUpdateService.class);
+		startService(intent);
 	}
 	
-	private void sendHttpRequeset(final String address,
+	public static void sendHttpRequeset(final String address,
 			final HttpCallbackListener listener) {
 		new Thread(new Runnable(){
 

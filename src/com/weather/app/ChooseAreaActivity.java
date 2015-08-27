@@ -157,7 +157,7 @@ public class ChooseAreaActivity extends Activity {
 						int index, long id) {
 					citycode_name = areaname.get(index).toString();
 					citycode = cityCodeDB.getCityCode(db, areaid.get(index).toString());
-					Intent intent = new Intent(ChooseAreaActivity.this,WeatherActivity.class);
+					Intent intent = new Intent(ChooseAreaActivity.this,WeatherActivityNormal.class);
 					intent.putExtra("citycode", citycode);
 					intent.putExtra("citycode_name", citycode_name);
 					startActivity(intent);
