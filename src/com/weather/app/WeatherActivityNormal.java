@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -41,6 +44,7 @@ public class WeatherActivityNormal extends Activity {
 	private TextView coldT;
 	
 	private Button choose;
+	private Button refresh;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +68,20 @@ public class WeatherActivityNormal extends Activity {
 		
 		choose = (Button) findViewById(R.id.choose);
 		choose.setOnClickListener(new OnClickListener(){
-
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(WeatherActivityNormal.this, ChooseAreaActivity.class);
 				startActivity(intent);
+			}
+		});
+		
+		refresh = (Button) findViewById(R.id.refresh);
+		refresh.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				String cityCode = getIntent().getStringExtra("citycode");
+				queryWeather(cityCode);
 			}
 			
 		});
@@ -163,6 +176,8 @@ public class WeatherActivityNormal extends Activity {
 			String day3, String day4, String weather1,
 			String weather2, String weather3, String weather4,
 			String cold) {
+		SimpleDateFormat sdf = new SimpleDateFormat("MÔÂ", Locale.CHINA);
+		String month = sdf.format(new Date());
 		SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
 		editor.putBoolean("city_selected", true);
 		editor.putString("city_name", cityName);
@@ -170,10 +185,10 @@ public class WeatherActivityNormal extends Activity {
 		editor.putString("wind_d", windD);
 		editor.putString("wind_p", windP);
 		editor.putString("temp", temp);
-		editor.putString("day1",day1);
-		editor.putString("day2",day2);
-		editor.putString("day3",day3);
-		editor.putString("day4",day4);
+		editor.putString("day1",month + day1);
+		editor.putString("day2",month + day2);
+		editor.putString("day3",month + day3);
+		editor.putString("day4",month + day4);
 		editor.putString("weather1",weather1);
 		editor.putString("weather2",weather2);
 		editor.putString("weather3",weather3);

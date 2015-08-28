@@ -27,7 +27,7 @@ public class AutoUpdateService extends Service {
 			
 		}).start();
 		AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-		int hour = 8*60*60*1000;
+		int hour = 1*60*60*1000;
 		long triggerAtTime = SystemClock.elapsedRealtime() + hour;
 		Intent i = new Intent(this, AutoUpdateService.class);
 		PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
